@@ -2,34 +2,27 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { i } from 'vite/dist/node/types.d-aGj9QkWt'
+// consider the follwing example code snipter 
+import classes from "./BlogPosts.module.css";
+ async function fetchPosts() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const blogPosts = awai response.json();
+  return blogPosts;
 
-function App() {
-  const [count, setCount] = useState(0)
+ }
 
+ function BlogPosts() {
+  const [loadedPosts, setLoadedPosts] = useState([]);
+  fetchPosts().then((fetchedPosts) => setLoadedPosts(fetchedPosts));
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ul className={'classes.posts'}>
+      {loadedPosts.map((post) => {
+        <li key={post.id}>{post.title}</li>
+      })}
+    </ul>
+  );
+ 
 }
 
-export default App
+export default BlogPosts;
